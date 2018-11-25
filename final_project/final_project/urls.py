@@ -29,4 +29,5 @@ urlpatterns = [
     path('', account_views.Info, name='Info'),
     path('account/', include('account.urls', namespace='account')),
     path('Logout/', account_views.UserLogout, name='Logout'),
+    path('network/', include('network.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

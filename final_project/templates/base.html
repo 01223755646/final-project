@@ -1,0 +1,226 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Final Project</title>
+
+    <!-- Bootstrap core CSS-->
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="/static/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/static/css/sb-admin.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+      <a class="navbar-brand mr-1" href="">IOT Farm</a>
+
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Navbar Search -->
+      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>
+
+      <!-- Navbar -->
+      <ul class="navbar-nav ml-auto ml-md-0">
+        <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-circle fa-fw"></i>
+            {{ request.user.username }}
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#CPModal">Change Password</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'Logout' %}" >Logout</a>
+          </div>
+        </li>
+      </ul>
+
+    </nav>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <ul class="sidebar navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/account/Info" >
+            <!-- <i class="fas fa-fw fa-tachometer-alt"></i> -->
+            <i class="fa fa-info-circle	"></i>
+            <span>Information</span>
+          </a>
+        </li>  
+        <li class="nav-item">
+            <a class="nav-link" href="/network">
+              <i class="fa fa-signal"></i>
+              <span>Network</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="">
+            <i class="fas fa-cogs"></i>
+            <span>EndNode</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">
+              <i class="fas fa-fw fa-chart-area"></i>
+              <span>Mornitoring</span></a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-tasks"></i>
+              <span>Control</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+              <a class="dropdown-item" href="">Manual</a>
+              <a class="dropdown-item" href="">Auto</a>
+            </div>
+        </li>
+      </ul>
+      
+
+      <div id="content-wrapper">
+            {% block body_block %}
+            {% endblock %}
+        <!-- <div class="container-fluid"> -->
+
+          <!-- Breadcrumbs-->
+          <!-- <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="">IOT Farm</a>
+            </li>
+            <li class="breadcrumb-item active">Information</li>
+          </ol> -->
+
+          <!-- Page Content -->
+          <!-- <h1>Blank Page</h1>
+          <hr>
+          <p>This is a great starting point for new custom pages.</p> -->
+
+        <!-- </div> -->
+        <!-- /.container-fluid -->
+
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Your Website 2018</span>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+      <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- ChangePassword Modal -->
+    <div class="modal fade" id="CPModal" tabindex="-1" role="dialog" aria-labelledby="passwordChangeTitle" aria-hidden="true">
+      <!-- <form action="{% url 'account:change_pass' %}" method="POST"> -->
+      
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" >
+                        <div class="form-group">
+                            <label for="oldadmin" class="control-label">User:</label>
+                            <input type="text" class="form-control" id="name" name="name" maxlength="10" value="admin">
+                        </div>
+                        <div class="form-group">
+                            <label for="oldadmin" class="control-label">Old:</label>
+                            <input type="password" class="form-control" id="oldadmin" name="oldadmin" maxlength="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="newadmin" class="control-label">New:</label>
+                            <input type="password" class="form-control" id="newadmin" name="newadmin" maxlength="10">
+                        </div>
+                        <div class="form-group">
+                            <label for="confilmadmin" class="control-label">Confirm:</label>
+                            <input type="password" class="form-control" id="confilmadmin" name="confilmadmin" maxlength="10">
+                        </div>
+                    </form>
+                    
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" id="btnPwadmin" class="btn btn-success"> -->
+                        <p><input type="submit" class="btn btn-success btn-block" value="Change" id="btn_CP"></p>
+                        <!-- <i class="fa fa-check"></i> Change</button> -->
+                </div>
+            </div>
+          </div>
+          {% csrf_token %}
+      </form>
+    
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/static/js/sb-admin.min.js"></script>
+    <script>
+    function change_PW(name, oldpw, newpw, confilm, modal) {
+        var datasend = {
+            'csrfmiddlewaretoken': '{{ csrf_token }}',
+            'name': name,
+            'old': $(oldpw).val(),
+            'new': $(newpw).val(),
+            'confilm': $(confilm).val(),
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/account/ChangePass/',
+            data: datasend,
+            success: function (data, textStatus) {
+            if (data['status'] == 'Successfull') {
+                alert(data['status']);
+                $(modal).modal('toggle');
+                // window.location.href = '/account/Info/';
+            }
+            else {
+                alert(data['status']);
+            }
+            },
+            error: function (xhr, status, e) {
+            alert(status, e);
+            }
+        });
+    }
+    $('#btn_CP').click(function () { change_PW('admin', '#oldadmin', '#newadmin', '#confilmadmin', '#CPModal') });
+    </script>
+
+  </body>
+
+</html>
