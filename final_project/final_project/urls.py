@@ -22,6 +22,11 @@ from account import views as account_views
 from device import views as device_views
 from network import views as network_views
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', account_views.Info, name='Info'),
+    path('account/', include('account.urls', namespace='account')),
+    path('Logout/', account_views.UserLogout, name='Logout'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
