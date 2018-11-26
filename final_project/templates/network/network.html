@@ -1,38 +1,42 @@
 {% extends "base.html" %}
 {% block body_block %}
-    <div class="container-fluid"> 
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="">IOT Farm</a>
-            </li>
-            <li class="breadcrumb-item active">Network</li>
-        </ol>
-<div class="container">
-    <div class="card card-register mx-auto mt-5">
-        <div class="card-header">Network Connection Detail</div>
-        <div class="card-body">
-            <form>
-                <div class="form-group">
-                    <div class="form-label-group">
-                        <input type="text" id="ModeNetwork" class="form-control" placeholder="ModeNetwork" >
-                        <label for="inputEmail">Mode Network</label>
+<div class="container-fluid"> 
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="">IOT Farm</a>
+        </li>
+        <li class="breadcrumb-item active">Network</li>
+    </ol>
+    <div class="container">
+        <div class="card card-register mx-auto mt-5">
+            <div class="card-header">Network Connection Detail</div>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <input type="text" id="ModeNetwork" class="form-control" placeholder="ModeNetwork" >
+                            <label for="inputEmail">Mode Network</label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-row">
-                        <div class="col-md-6">
-                            <div class="form-label-group">
-                                <input type="text" id="SSID" class="form-control" placeholder="SSID"  autofocus="autofocus">
-                                <label for="SSID">SSID</label>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    <input type="text" id="SSID" class="form-control" placeholder="SSID"  autofocus="autofocus">
+                                    <label for="SSID">SSID</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    <input type="text" id="PSK" class="form-control" placeholder="PSK" >
+                                    <label for="PSK">PSK</label>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-label-group">
-                                <input type="text" id="PSK" class="form-control" placeholder="PSK" >
-                                <label for="PSK">PSK</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
                                 <div class="form-label-group">
                                     <input type="text" id="gateway" class="form-control" placeholder="gateway"  autofocus="autofocus">
                                     <label for="gateway">Gateway</label>
@@ -44,23 +48,38 @@
                                     <label for="subnet">Subnet Mask</label>
                                 </div>
                             </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-label-group">
-                        <input type="" id="inputEmail" class="form-control" placeholder="Email address" required="required">
-                        <label for="inputEmail">Email address</label>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <input type="" id="ipaddress" class="form-control" placeholder="IP address" >
+                            <label for="ipaddress">IP address</label>
+                        </div>
                     </div>
-                </div>
-                   
-                <a class="btn btn-primary btn-block" href="login.html">Register</a>
-            </form>
-        <div class="text-center">
-            <a class="d-block small mt-3" href="login.html">Login Page</a>
-            <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
-        </div>
+                    
+                    <!-- <a class="btn btn-primary btn-block" href="">Register</a> -->
+                </form>
+            </div>
         </div>
     </div>
+    <br />
+    <div class="container">
+        <div class="card card-register mx-auto" style="width: 50rem;">
+                <div class="card-header">Config Network</div>
+                <div class="card-body">
+                    <form>
+                            <div class="form-group">
+                                <div class="form-row">
+                                    <div class="col-md-6"><button type="button" class="btn btn-primary col-md-12" href="">Accesspoint</button></div>
+                                    <div class="col-md-6"><button type="button" class="btn btn-primary col-md-12" href="">Wifi Station</button></div>
+                                    
+                                    
+                                </div>   
+                            </div>
+                    </form>
+                    
+                        
+                </div>
+        </div>
 </div>
-    </div>
 {% endblock %}
