@@ -14,21 +14,21 @@
                 <form>
                     <div class="form-group">
                         <div class="form-label-group">
-                            <input type="text" id="ModeNetwork" class="form-control" placeholder="ModeNetwork" >
-                            <label for="inputEmail">Mode Network</label>
+                            <input type="text" id="ModeNetwork" class="form-control" placeholder="ModeNetwork" disabled>
+                            <label for="ModeNetwork">Mode Network</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-label-group">
-                                    <input type="text" id="SSID" class="form-control" placeholder="SSID"  autofocus="autofocus">
+                                    <input type="text" id="SSID" class="form-control" placeholder="SSID"  autofocus="autofocus"  disabled>
                                     <label for="SSID">SSID</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-label-group">
-                                    <input type="text" id="PSK" class="form-control" placeholder="PSK" >
+                                    <input type="text" id="PSK" class="form-control" placeholder="PSK" disabled>
                                     <label for="PSK">PSK</label>
                                 </div>
                             </div>
@@ -38,13 +38,13 @@
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-label-group">
-                                    <input type="text" id="gateway" class="form-control" placeholder="gateway"  autofocus="autofocus">
+                                    <input type="text" id="gateway" class="form-control" placeholder="gateway"  autofocus="autofocus" disabled>
                                     <label for="gateway">Gateway</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-label-group">
-                                    <input type="text" id="subnet" class="form-control" placeholder="subnet" >
+                                    <input type="text" id="subnet" class="form-control" placeholder="subnet" disabled>
                                     <label for="subnet">Subnet Mask</label>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
-                            <input type="" id="ipaddress" class="form-control" placeholder="IP address" >
+                            <input type="" id="ipaddress" class="form-control" placeholder="IP address" disabled>
                             <label for="ipaddress">IP address</label>
                         </div>
                     </div>
@@ -70,16 +70,24 @@
                     <form>
                             <div class="form-group">
                                 <div class="form-row">
-                                    <div class="col-md-6"><button type="button" class="btn btn-primary col-md-12" href="">Accesspoint</button></div>
-                                    <div class="col-md-6"><button type="button" class="btn btn-primary col-md-12" href="">Wifi Station</button></div>
-                                    
-                                    
-                                </div>   
+                                    <div class="col-md-6"><button type="button" class="btn btn-primary col-md-12" href="" data-toggle="modal" data-target="#AccesspointMD">Accesspoint</button></div>
+                                    <div class="col-md-6"><button type="button" class="btn btn-primary col-md-12 dropdown-toggle" href="" id="WSDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Wifi Station</button>
+
+                                    <div class="dropdown-menu text-white bg-light col-md-11" aria-labelledby="WSDropdown">
+                                            <a class="dropdown-item text-black bg-white" href="" autofocus="autofocus" data-toggle="modal" data-target="#WSDHCPMD">DHCP</a>
+                                            <a class="dropdown-item text-black bg-white" href="" autofocus="autofocus" data-toggle="modal" data-target="#WSSTATICMD">STATIC</a>
+                                    </div>
+                                    </div>
+                                </div>  
+                               
                             </div>
                     </form>
                     
                         
                 </div>
         </div>
+        {% include "network/configAccesspoint.html" %}
+        {% include "network/configWifiStation.html" %}
+    
 </div>
 {% endblock %}

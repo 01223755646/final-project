@@ -1,0 +1,144 @@
+<!-- Giao diện modal config network -->
+    <!-- WIFI STATION -->
+<div class="modal fade" id="WSDHCPMD" tabindex="-1" role="dialog" aria-labelledby="AccesspointMDTitle" aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">SETTING WIFI STATION</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form role="form" >
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-label-group">
+                                    <input type="text" id="networkModeWSDHCP" class="form-control" placeholder="networkModeA"  autofocus="autofocus" value="WIFI STATION DHCP" disabled> 
+                                    <label for="NetworkModeA">Network Mode</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    <input type="text" id="SSIDWSDHCP" class="form-control" placeholder="SSIDWSDHCP"  autofocus="autofocus" value="IOTFram"> 
+                                    <label for="SSIDWSDHCP">SSID</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    <input type="text" id="PSKWSDHCP" class="form-control" placeholder="PSKWSDHCP" value="00000000">
+                                    <label for="PSKWSDHCP">PSK</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    <input type="text" id="gatewayWSDHCP" class="form-control" placeholder="gatewayWSDHCP"  autofocus="autofocus" value="192.186.1.1" disabled>
+                                    <label for="gatewayWSDHCP">Gateway</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    <input type="text" id="subnetWSDHCP" class="form-control" placeholder="subnetWSDHCP"  value="255.255.255.0" disabled>
+                                    <label for="subnetWSDHCP">Subnet Mask</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <input type="" id="ipaddressWSDHCP" class="form-control" placeholder="IP address WSDHCP" value="192.168.4.1" disabled>
+                            <label for="ipaddressWSDHCP">IP address</label>
+                        </div>
+                    </div> -->
+                </form>              
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" id="btnPwadmin" class="btn btn-success"> -->
+                    <p><input type="submit" class="btn btn-success btn-block" value="OK" id="btn_wsdhcp"></p>
+                    <!-- <i class="fa fa-check"></i> Change</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="WSSTATICMD" tabindex="-1" role="dialog" aria-labelledby="AccesspointMDTitle" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">SETTING WIFI STATION</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" >
+    
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <div class="form-label-group">
+                                        <input type="text" id="networkModeWSSTATIC" class="form-control" placeholder="networkModeA"  autofocus="autofocus" value="WIFI STATION STATIC IP" disabled> 
+                                        <label for="NetworkModeA">Network Mode</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <input type="text" id="SSIDWSSTATIC" class="form-control" placeholder="SSIDWSSTATIC"  autofocus="autofocus" value="IOTFram"> 
+                                        <label for="SSIDWSSTATIC">SSID</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <input type="text" id="PSKWSSTATIC" class="form-control" placeholder="PSKWSSTATIC" value="00000000">
+                                        <label for="PSKWSSTATIC">PSK</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <input type="text" id="gatewayWSSTATIC" class="form-control" placeholder="gatewayWSSTATIC"  autofocus="autofocus">
+                                        <label for="gatewayWSSTATIC">Gateway</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <input type="text" id="subnetWSSTATIC" class="form-control" placeholder="subnetWSSTATIC">
+                                        <label for="subnetWSSTATIC">Subnet Mask</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                <input type="" id="ipaddressWSSTATIC" class="form-control" placeholder="IP address WSSTATIC">
+                                <label for="ipaddressWSSTATIC">IP address</label>
+                            </div>
+                        </div>
+                    </form>              
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" id="btnPwadmin" class="btn btn-success"> -->
+                        <p><input type="submit" class="btn btn-success btn-block" value="OK" id="btn_wsstatic"></p>
+                        <!-- <i class="fa fa-check"></i> Change</button> -->
+                </div>
+            </div>
+        </div>
+    </div>

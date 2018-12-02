@@ -1,0 +1,73 @@
+<!-- Giao diện modal config network -->
+    <!-- Accespoint -->
+<div class="modal fade" id="AccesspointMD" tabindex="-1" role="dialog" aria-labelledby="AccesspointMDTitle" aria-hidden="true">
+     
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Setting Accesspoint</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form role="form" >
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-label-group">
+                                    <input type="text" id="networkModeA" class="form-control" placeholder="networkModeA"  autofocus="autofocus" value="Accesspoint" disabled> 
+                                    <label for="NetworkModeA">Network Mode</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    <input type="text" id="SSIDAP" class="form-control" placeholder="SSIDAP"  autofocus="autofocus" value="IOTFram"> 
+                                    <label for="SSIDAP">SSID</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    <input type="text" id="PSKAP" class="form-control" placeholder="PSKAP" value="00000000">
+                                    <label for="PSKAP">PSK</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    <input type="text" id="gatewayAP" class="form-control" placeholder="gatewayAP"  autofocus="autofocus" value="192.186.1.1" disabled>
+                                    <label for="gatewayAP">Gateway</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-label-group">
+                                    <input type="text" id="subnetAP" class="form-control" placeholder="subnetAP"  value="255.255.255.0" disabled>
+                                    <label for="subnetAP">Subnet Mask</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <input type="" id="ipaddressAP" class="form-control" placeholder="IP address AP" value="192.168.4.1" disabled>
+                            <label for="ipaddressAP">IP address</label>
+                        </div>
+                    </div>
+                </form>              
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" id="btnPwadmin" class="btn btn-success"> -->
+                    <p><input type="submit" class="btn btn-success btn-block" value="OK" id="btn_accesspoint"></p>
+                    <!-- <i class="fa fa-check"></i> Change</button> -->
+            </div>
+        </div>
+    </div>
+</div>
