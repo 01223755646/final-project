@@ -65,11 +65,34 @@
             </div>
             <div class="modal-footer">
                 <!-- <button type="button" id="btnPwadmin" class="btn btn-success"> -->
-                    <p><input type="submit" class="btn btn-success btn-block" value="OK" id="btn_wsdhcp"></p>
+                    <p><input type="submit" class="btn btn-success btn-block" value="OK" id="btn_dhcpWS"></p>
                     <!-- <i class="fa fa-check"></i> Change</button> -->
             </div>
         </div>
     </div>
+    <script>
+            $('#btn_dhcpWS').click(function () { 
+                var datasend = {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'SSID': $('#SSIDWSDHCP').val(),
+                    'PSK': $('#PSKWSDHCP').val(),
+                    'Mode': "DHCPWS",
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '/network/DHCPWS/',
+                    data: datasend,
+                    success: function (data, textStatus) {
+                        if (data['status'] == 'Invalidate Data') {
+                            alert('Invalidate Data');
+                        }
+                    },
+                    error: function (xhr, status, e) {
+                        alert(status, e);
+                    }
+                });
+            });  
+    </script>
 </div>
 <div class="modal fade" id="WSSTATICMD" tabindex="-1" role="dialog" aria-labelledby="AccesspointMDTitle" aria-hidden="true">
 
@@ -136,9 +159,36 @@
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" id="btnPwadmin" class="btn btn-success"> -->
-                        <p><input type="submit" class="btn btn-success btn-block" value="OK" id="btn_wsstatic"></p>
+                        <p><input type="submit" class="btn btn-success btn-block" value="OK" id="btn_staticWS"></p>
                         <!-- <i class="fa fa-check"></i> Change</button> -->
                 </div>
             </div>
-        </div>
-    </div>
+        </div>            
+        <script>
+                $('#btn_staticWS').click(function () { 
+                    var datasend = {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',
+                        'SSID': $('#SSIDWSSTATIC').val(),
+                        'PSK': $('#PSKWSSTATIC').val(),
+                        'GATEWAY': $('#gatewayWSSTATIC').val(),
+                        'SUBNET':$('#subnetWSSTATIC').val(),
+                        'IP':$('#ipaddressWSSTATIC').val(),
+                        'Mode': "STATICWS",
+                    };
+        
+                    $.ajax({
+                        type: 'POST',
+                        url: '/network/StaticWS/',
+                        data: datasend,
+                        success: function (data, textStatus) {
+                            if (data['status'] == 'Invalidate Data') {
+                                alert('Invalidate Data');
+                            }
+                        },
+                        error: function (xhr, status, e) {
+                            alert(status, e);
+                        }
+                    });
+                });  
+        </script>
+</div>

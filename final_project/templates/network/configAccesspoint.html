@@ -70,4 +70,28 @@
             </div>
         </div>
     </div>
+    <script>
+        $('#btn_accesspoint').click(function () {
+            var datasend = {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'SSID': $('#SSIDAP').val(),
+                'PSK': $('#PSKAP').val(),
+                'Mode': "ACCESSPOINT",
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/network/Accesspoint/',
+                data: datasend,
+                success: function (data, textStatus) {
+                    if (data['status'] == 'Invalidate Data') {
+                        alert('Invalidate Data');
+                    }
+                },
+                error: function (xhr, status, e) {
+                    alert(status, e);
+                }
+            });
+        });
+    </script>
 </div>
