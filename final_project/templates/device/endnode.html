@@ -9,31 +9,25 @@
     </ol>
     <div class="container">
             
-        <h2>Endnode Management</h2>     
+        <h2>
+            Endnode Management
+            <div class="float-sm-right">
+                    <button type="button" class="btn btn-primary" id="TestConnect">Test Connect Endnode</button>
+                    <button type="button" class="btn btn-success" id="AddEndNode">Add Endnode</button>
+            </div>
+            
+        </h2>     
+        
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
+                <th>TYPE NODE</th>
+                <th>ID NODE</th>
+                <th></th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-            </tr>
-            <tr>
-                <td>Mary</td>
-                <td>Moe</td>
-                <td>mary@example.com</td>
-            </tr>
-            <tr>
-                <td>July</td>
-                <td>Dooley</td>
-                <td>july@example.com</td>
-            </tr>
+            <tbody id="InforEndnode">
+            
             </tbody>
         </table>
                   
@@ -41,5 +35,104 @@
     <br />
     <div class="container">
     </div>
-    {% include "network/configAccesspoint.html" %}
+</div>
+<script>
+$(document).ready(function(){
+    var timer_endnode;
+    timer_endnode = setInterval(
+        function(){
+            var datasend = {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'DATA_NEED' : 'Get Info End Node'
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/device/InfoEndNode/',
+                data: datasend,
+                success: function (data, textStatus) {
+                    console.log(data);
+                    // console.log(data.RLACS.length);
+                    for (var i = 0; i < data.RLACS.length; i++ ){
+                        
+                        var row = document.createElement("tr");
+                        var col1 = document.createElement("td");
+                        var text1 = document.createTextNode("RLACS");
+                        var col2 = document.createElement("td");
+                        var text2 = document.createTextNode(data.RLACS[i]);
+
+
+                        var col3 = document.createElement("td");
+                        var text3 = document.createTextNode("");
+                        var btndelete = document.createElement("input");
+                        btndelete.setAttribute("type", "submit");
+                        btndelete.setAttribute("class", "btn btn-danger");
+                        btndelete.setAttribute("id", "DEL" + data.RLACS[i]);
+                        btndelete.setAttribute("value", "DELETE");
+                        col3.appendChild(btndelete);
+
+                        col1.appendChild(text1);
+                        col2.appendChild(text2);
+                        
+                        row.appendChild(col1);
+                        row.appendChild(col2);
+                        row.appendChild(col3);
+                        document.getElementById("InforEndnode").appendChild(row);
+                    }
+                    for (var i = 0; i < data.RLTDS.length; i++ ){
+                        var row = document.createElement("tr");
+                        var col1 = document.createElement("td");
+                        var text1 = document.createTextNode("RLTDS");
+                        var col2 = document.createElement("td");
+                        var text2 = document.createTextNode(data.RLTDS[i]);
+                        var col3 = document.createElement("td");
+                        var text3 = document.createTextNode("");
+                        var btndelete = document.createElement("input");
+                        btndelete.setAttribute("type", "submit");
+                        btndelete.setAttribute("class", "btn btn-danger");
+                        btndelete.setAttribute("id", "DEL" + data.RLTDS[i]);
+                        btndelete.setAttribute("value", "DELETE");
+                        col3.appendChild(btndelete);
+                        
+                        col1.appendChild(text1);
+                        col2.appendChild(text2);
+
+                        
+                        row.appendChild(col1);
+                        row.appendChild(col2);
+                        row.appendChild(col3);
+                        document.getElementById("InforEndnode").appendChild(row);
+                    }
+                    for (var i = 0; i < data.THL_SENSOR.length; i++ ){
+                        var row = document.createElement("tr");
+                        var col1 = document.createElement("td");
+                        var text1 = document.createTextNode("THL_SENSOR");
+                        var col2 = document.createElement("td");
+                        var text2 = document.createTextNode(data.THL_SENSOR[i]);
+                        var col3 = document.createElement("td");
+                        
+                        var btndelete = document.createElement("input");
+                        btndelete.setAttribute("type", "submit");
+                        btndelete.setAttribute("class", "btn btn-danger");
+                        btndelete.setAttribute("id", "DEL" + data.THL_SENSOR[i]);
+                        btndelete.setAttribute("value", "DELETE");
+                        col3.appendChild(btndelete);
+
+                        col1.appendChild(text1);
+                        col2.appendChild(text2);
+            
+                        row.appendChild(col1);
+                        row.appendChild(col2);
+                        row.appendChild(col3);
+                        document.getElementById("InforEndnode").appendChild(row);
+                    }
+                    clearInterval(timer_endnode);
+                },
+                error: function (xhr, status, e) {
+                    alert(status, e);
+                }
+            });
+        }, 500);
+})
+</script>
 {% endblock %}
