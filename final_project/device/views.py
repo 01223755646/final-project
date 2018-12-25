@@ -19,3 +19,18 @@ def InfoEndNode(request):
     linkDB = "C:\\Users\\Admin\\Desktop\\final_project\\final_project\\db.sqlite3"
     data = GetInfoEndnode(linkDB)
     return JsonResponse(data)
+
+def AddEndNode(request):
+    print(request.POST)
+    data = {}
+    return JsonResponse(data)
+
+def DeleteEndNode(request):
+    print(request.POST)
+    data = {}
+    return JsonResponse(data)
+
+def TestConnect(request):
+    print(request.POST)
+    data = {}
+    return JsonResponse(data)

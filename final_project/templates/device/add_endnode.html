@@ -1,0 +1,80 @@
+<div class="modal fade" id="AddEndnodeMD" tabindex="-1" role="dialog" aria-labelledby="AddEndnodeMDTitle" aria-hidden="true">
+     
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">ADD ENDNODE</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            </div>
+            <div class="modal-body">
+                <form role="form" >
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-label-group">
+                                    <!-- <input type="text" id="networkModeA" class="form-control" placeholder="networkModeA"  autofocus="autofocus" value="Accesspoint" disabled>  -->
+                                    
+                                    <div class="dropdown">
+                                        <label class="col-md-6" for="typenode_add">TYPE NODE: </label>
+                                        <button type="button" class="btn btn-default dropdown-toggle col-md-5" data-toggle="dropdown" id="typenode_add">
+                                            <span class="selection">RLACS</span><span class="caret"></span>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="typenode_add">
+                                          <a class="dropdown-item" href="#">RLACS</a>
+                                          <a class="dropdown-item" href="#">RLTDS</a>
+                                          <a class="dropdown-item" href="#">THL_SENSOR</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <input type="" id="idnode_add" class="form-control" placeholder="ID NODE ADD">
+                            <label for="idnode_add">IDNODE: </label>
+                        </div>
+                    </div>
+                </form>              
+            </div>
+            <div class="modal-footer">
+                <!-- <button type="button" id="btnPwadmin" class="btn btn-success"> -->
+                    <p><input type="submit" class="btn btn-success btn-block" value="OK" id="btn_addEN"></p>
+                    <!-- <i class="fa fa-check"></i> Change</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+// $('#typenode_add').find('.selection').text('RLACS');
+// alert($('#typenode_add').find('.selection').text());
+$(".dropdown-menu a").click(function(){
+    $(this).parents(".dropdown").find('.selection').text($(this).text());
+    $(this).parents(".dropdown").find('.selection').val($(this).text());
+    // alert($('#typenode_add').find('.selection').val());
+    // alert($('#idnode_add').val());
+})
+$('#btn_addEN').click(function () {
+    var datasend = {
+        'csrfmiddlewaretoken': '{{ csrf_token }}',
+        'TYPENODE': $('#typenode_add').find('.selection').text(),
+        'IDNODE': $('#idnode_add').val(),  
+        'REQUEST': 'ADD ENDNODE', 
+    };
+    $.ajax({
+        type: 'POST',
+        url: '/device/AddEndNode/',
+        data: datasend,
+        success: function (data, textStatus) {
+            if (data['status'] == 'Invalidate Data') {
+                alert('Invalidate Data');
+            }
+        },
+        error: function (xhr, status, e) {
+            alert(status, e);
+        }
+    });
+});
+</script>

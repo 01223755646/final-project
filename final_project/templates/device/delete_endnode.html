@@ -1,20 +1,20 @@
-<div class="modal fade" id="TestConnectMD" tabindex="-1" role="dialog" aria-labelledby="TestConnectMDTitle" aria-hidden="true">
+<div class="modal fade" id="DeleteEndnodeMD" tabindex="-1" role="dialog" aria-labelledby="DeleteEndnodeMDTitle" aria-hidden="true">
      
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">TEST CONNECT</h5>
+                <h5 class="modal-title" id="exampleModalLabel">DELETE ENDNODE</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
                 </div>
                 <div class="modal-body">
                     <form role="form" >
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-12">
                                     <div class="form-label-group">
-                                        <input type="text" id="networkModeA" class="form-control" placeholder="networkModeA"  autofocus="autofocus" value="Accesspoint" disabled>
+                                        <!-- <input type="text" id="networkModeA" class="form-control" placeholder="networkModeA"  autofocus="autofocus" value="Accesspoint" disabled>  -->
                                         
                                         <div class="dropdown">
                                             <label class="col-md-6" for="typenode_delete">TYPE NODE: </label>
@@ -30,18 +30,18 @@
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="form-group">
                             <div class="form-label-group">
-                                <input type="" id="idnode_testconnect" class="form-control" placeholder="ID NODE TESTcONNECT">
-                                <label for="idnode_testconnect">IDNODE: </label>
+                                <input type="" id="idnode_delete" class="form-control" placeholder="ID NODE DELETE">
+                                <label for="idnode_delete">IDNODE: </label>
                             </div>
                         </div>
                     </form>              
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" id="btnPwadmin" class="btn btn-success"> -->
-                        <p><input type="submit" class="btn btn-success btn-block" value="OK" id="btn_testconnect"></p>
+                        <p><input type="submit" class="btn btn-success btn-block" value="OK" id="btn_deleteEN"></p>
                         <!-- <i class="fa fa-check"></i> Change</button> -->
                 </div>
             </div>
@@ -56,16 +56,16 @@
         // alert($('#typenode_add').find('.selection').val());
         // alert($('#idnode_add').val());
     // })
-    $('#btn_testconnect').click(function () {
+    $('#btn_deleteEN').click(function () {
         var datasend = {
             'csrfmiddlewaretoken': '{{ csrf_token }}',
-            // 'TYPENODE': $('#typenode_delete').find('.selection').text(),
-            'IDNODE': $('#idnode_testconnect').val(),  
-            'REQUEST': 'TEST CONNECT', 
+            'TYPENODE': $('#typenode_delete').find('.selection').text(),
+            'IDNODE': $('#idnode_delete').val(),  
+            'REQUEST': 'DELETE ENDNODE', 
         };
         $.ajax({
             type: 'POST',
-            url: '/device/TestConnect/',
+            url: '/device/DeleteEndNode/',
             data: datasend,
             success: function (data, textStatus) {
                 if (data['status'] == 'Invalidate Data') {

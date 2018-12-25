@@ -12,18 +12,17 @@
         <h2>
             Endnode Management
             <div class="float-sm-right">
-                    <button type="button" class="btn btn-primary" id="TestConnect">Test Connect Endnode</button>
-                    <button type="button" class="btn btn-success" id="AddEndNode">Add Endnode</button>
-            </div>
-            
+                    <button type="button" class="btn btn-primary" id="TestConnect"data-toggle="modal" data-target="#TestConnectMD">Test Connect Endnode</button>
+                    <button type="button" class="btn btn-success" id="AddEndNode" data-toggle="modal" data-target="#AddEndnodeMD">Add Endnode</button>
+                    <button type="button" class="btn btn-danger" id="DeleteEndNode" data-toggle="modal" data-target="#DeleteEndnodeMD">Delete Endnode</button>
+            </div> 
         </h2>     
-        
         <table class="table table-hover">
             <thead>
             <tr>
                 <th>TYPE NODE</th>
                 <th>ID NODE</th>
-                <th></th>
+                <th>TIME ADD</th>
             </tr>
             </thead>
             <tbody id="InforEndnode">
@@ -36,6 +35,9 @@
     <div class="container">
     </div>
 </div>
+{% include "device/add_endnode.html" %}
+{% include "device/delete_endnode.html" %}
+{% include "device/testconnect.html" %}
 <script>
 $(document).ready(function(){
     var timer_endnode;
@@ -64,15 +66,17 @@ $(document).ready(function(){
 
                         var col3 = document.createElement("td");
                         var text3 = document.createTextNode("");
-                        var btndelete = document.createElement("input");
-                        btndelete.setAttribute("type", "submit");
-                        btndelete.setAttribute("class", "btn btn-danger");
-                        btndelete.setAttribute("id", "DEL" + data.RLACS[i]);
-                        btndelete.setAttribute("value", "DELETE");
-                        col3.appendChild(btndelete);
+
+                        // var btndelete = document.createElement("input");
+                        // btndelete.setAttribute("type", "submit");
+                        // btndelete.setAttribute("class", "btn btn-danger");
+                        // btndelete.setAttribute("id", "DEL" + data.RLACS[i]);
+                        // btndelete.setAttribute("value", "DELETE");
+                        // col3.appendChild(btndelete);
 
                         col1.appendChild(text1);
                         col2.appendChild(text2);
+                        col3.appendChild(text3);
                         
                         row.appendChild(col1);
                         row.appendChild(col2);
@@ -87,15 +91,17 @@ $(document).ready(function(){
                         var text2 = document.createTextNode(data.RLTDS[i]);
                         var col3 = document.createElement("td");
                         var text3 = document.createTextNode("");
-                        var btndelete = document.createElement("input");
-                        btndelete.setAttribute("type", "submit");
-                        btndelete.setAttribute("class", "btn btn-danger");
-                        btndelete.setAttribute("id", "DEL" + data.RLTDS[i]);
-                        btndelete.setAttribute("value", "DELETE");
-                        col3.appendChild(btndelete);
+                        // var btndelete = document.createElement("input");
+                        // btndelete.setAttribute("type", "submit");
+                        // btndelete.setAttribute("class", "btn btn-danger");
+                        // btndelete.setAttribute("id", "DEL" + data.RLTDS[i]);
+                        // btndelete.setAttribute("value", "DELETE");
+                        // col3.appendChild(btndelete);
                         
                         col1.appendChild(text1);
                         col2.appendChild(text2);
+                        col3.appendChild(text3);
+
 
                         
                         row.appendChild(col1);
@@ -110,17 +116,18 @@ $(document).ready(function(){
                         var col2 = document.createElement("td");
                         var text2 = document.createTextNode(data.THL_SENSOR[i]);
                         var col3 = document.createElement("td");
-                        
-                        var btndelete = document.createElement("input");
-                        btndelete.setAttribute("type", "submit");
-                        btndelete.setAttribute("class", "btn btn-danger");
-                        btndelete.setAttribute("id", "DEL" + data.THL_SENSOR[i]);
-                        btndelete.setAttribute("value", "DELETE");
-                        col3.appendChild(btndelete);
+                        var text3 = document.createTextNode("");
+                        // var btndelete = document.createElement("input");
+                        // btndelete.setAttribute("type", "submit");
+                        // btndelete.setAttribute("class", "btn btn-danger");
+                        // btndelete.setAttribute("id", "DEL" + data.THL_SENSOR[i]);
+                        // btndelete.setAttribute("value", "DELETE");
+                        // col3.appendChild(btndelete);
 
                         col1.appendChild(text1);
                         col2.appendChild(text2);
-            
+                        col3.appendChild(text3);
+
                         row.appendChild(col1);
                         row.appendChild(col2);
                         row.appendChild(col3);
@@ -134,5 +141,6 @@ $(document).ready(function(){
             });
         }, 500);
 })
+
 </script>
 {% endblock %}
