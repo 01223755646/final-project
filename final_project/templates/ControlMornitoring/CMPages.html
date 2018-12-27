@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+{% block body_block %}
+<div class="container-fluid"> 
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="">IOT Farm</a>
+        </li>
+        <li class="breadcrumb-item active">EndNode</li>
+    </ol>
+    <div class="container">
+            
+        <h2>
+            Control And Mornitoring
+            <!-- <div class="float-sm-right">
+                    <button type="button" class="btn btn-primary" id="TestConnect"data-toggle="modal" data-target="#TestConnectMD">Test Connect Endnode</button>
+                    <button type="button" class="btn btn-success" id="AddEndNode" data-toggle="modal" data-target="#AddEndnodeMD">Add Endnode</button>
+                    <button type="button" class="btn btn-danger" id="DeleteEndNode" data-toggle="modal" data-target="#DeleteEndnodeMD">Delete Endnode</button>
+            </div>  -->
+        </h2>     
+        <h3>RLACS NODE</h3>
+        <input type="checkbox" data-toggle="toggle" data-onstyle="primary" data-offstyle="danger" id="RLACS01_D1">
+        <input type="checkbox" data-toggle="toggle">
+        <table class="table table-bordered">
+            <thead>
+              <tr class="d-flex">
+                <th scope="col" class="col-4">IDNODE</th>
+                <th scope="col" class="col-2">D1</th>
+                <th scope="col" class="col-2">A1</th>
+                <th scope="col" class="col-2">D1</th>
+                <th scope="col" class="col-2">A1</th>
+              </tr>
+            </thead>
+            <tbody id="RLACS_TABLE">
+            
+            </tbody>
+        </table>
+        <h3>RLTDS NODE</h3>
+        <table class="table table-bordered">
+            <thead>
+              <tr class="d-flex">
+                <th scope="col" class="col-4">IDNODE</th>
+                <th scope="col" class="col-4">D</th>
+                <th scope="col" class="col-4">TDS</th>
+              </tr>
+            </thead>
+            <tbody id="RLTDS_TABLE">
+            
+            </tbody>
+        </table>
+        <h3>THL_SENSOR NODE</h3>
+        
+        <table class="table table-bordered">
+            <thead>
+              <tr class="d-flex">
+                <th scope="col" class="col-4">IDNODE</th>
+                <th scope="col" class="col-3">TEMPERATURE</th>
+                <th scope="col" class="col-3">HUMIDITY</th>
+                <th scope="col" class="col-2">LIGHT</th>
+              </tr>
+            </thead>
+            <tbody id="THL_TABLE">
+            
+            </tbody>
+        </table>
+                  
+    </div>
+    <br />
+    <div class="container">
+    </div>
+</div>
+
+<script>
+
+$(document).ready(function(){
+    var timer_cmpages = setInterval(function(){
+        
+            var datasend = {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'DATA_NEED' : 'Get Data CMPage'
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/device/DataCMPage/',
+                data: datasend,
+                success: function (data, textStatus) {
+                    console.log(data);
+                    console.log(data.RLACS); 
+                    for (var i = 0; i < data.RLACS.length; i++ ){
+                        var row = document.createElement("tr");
+                        row.setAttribute("id", data.RLACS[i][0]);
+                        document.getElementById("RLACS_TABLE").appendChild(row);
+                        // $('#'+data.RLACS[i]).prepend('<td>'+ data.RLACS[i] +'</td>')
+                        // $('#'+data.RLACS[i]).prepend('<td>'+ '<input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger">' +'</td>');
+                        // $('#'+data.RLACS[i]).prepend('<td>'+ '<input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger">' +'</td>');
+                        // $('#'+data.RLACS[i]).prepend('<td>'+ '<input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger">' +'</td>');
+                        // $('#'+data.RLACS[i]).prepend('<td>'+ '<input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger">' +'</td>');
+                        s = '<td>'+ data.RLACS[i] +'</td>';
+                        s += '<td>'+ '<input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger">' +'</td>';
+                        s += '<td>'+ data.RLACS[i] +'</td>';
+                        s += '<td>'+ '<input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger">' +'</td>';
+                        s += '<td><input type="checkbox" data-toggle="toggle"></td>';
+                        document.getElementById(data.RLACS[i][0]).innerHTML=(s);
+                        // var col1 = document.createElement("td");
+                        // var text1 = document.createTextNode(data.RLACS[i][0]);
+
+                        // var col2 = document.createElement("td");
+                        // var btnd1 = document.createElement("input");
+                        // btnd1.setAttribute("type", "checkbox");
+                        // btnd1.setAttribute("data-toggle", "toggle");
+                        // btnd1.setAttribute("data-onstyle","primary");
+                        // btnd1.setAttribute("data-offstyle","danger");
+                        // btnd1.setAttribute("id",data.RLACS[i][0]+"_D1");
+
+                        // var col3 = document.createElement("td");
+                        // var text3 = document.createTextNode(data.RLACS[i][2] + "A");
+
+                        // var col4 = document.createElement("td");
+                        // var btnd2 = document.createElement("input");
+                        // btnd2.setAttribute("type", "checkbox");
+                        // btnd2.setAttribute("data-toggle", "toggle");
+                        // btnd2.setAttribute("data-onstyle","primary");
+                        // btnd2.setAttribute("data-offstyle","danger");
+                        // btnd2.setAttribute("id",data.RLACS[i][0]+"_D2");
+
+                        // var col5 = document.createElement("td");
+                        // var text5 = document.createTextNode(data.RLACS[i][4] + "A");
+
+                        // col1.appendChild(text1);
+                        // col2.appendChild(btnd1);
+                        // col3.appendChild(text3);
+                        // col4.appendChild(btnd2);
+                        // col5.appendChild(text5);
+
+                        // row.appendChild(col1);
+                        // row.appendChild(col2);
+                        // row.appendChild(col3);
+                        // row.appendChild(col4);
+                        // row.appendChild(col5);
+                        
+                        document.getElementById("RLACS_TABLE").appendChild(row);                        
+                    }
+
+                    clearInterval(timer_cmpages);
+
+                // <!-- <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger"> -->
+                },
+                error: function (xhr, status, e) {
+                    alert(status, e);
+                }
+            });
+      
+    },100);
+})
+// $(document).ready(function(){
+//     var timer_endnode;
+//     timer_endnode = setInterval(
+//         function(){
+//             var datasend = {
+//                 'csrfmiddlewaretoken': '{{ csrf_token }}',
+//                 'DATA_NEED' : 'Get Info End Node'
+//             };
+
+//             $.ajax({
+//                 type: 'POST',
+//                 url: '/device/InfoEndNode/',
+//                 data: datasend,
+//                 success: function (data, textStatus) {
+//                     console.log(data);
+//                     // console.log(data.RLACS.length);
+//                     for (var i = 0; i < data.RLACS.length; i++ ){
+                        
+//                         var row = document.createElement("tr");
+//                         var col1 = document.createElement("td");
+//                         var text1 = document.createTextNode("RLACS");
+//                         var col2 = document.createElement("td");
+//                         var text2 = document.createTextNode(data.RLACS[i]);
+
+
+//                         var col3 = document.createElement("td");
+//                         var text3 = document.createTextNode("");
+
+
+//                         col1.appendChild(text1);
+//                         col2.appendChild(text2);
+//                         col3.appendChild(text3);
+                        
+//                         row.appendChild(col1);
+//                         row.appendChild(col2);
+//                         row.appendChild(col3);
+//                         document.getElementById("InforEndnode").appendChild(row);
+//                     }
+//                     for (var i = 0; i < data.RLTDS.length; i++ ){
+//                         var row = document.createElement("tr");
+//                         var col1 = document.createElement("td");
+//                         var text1 = document.createTextNode("RLTDS");
+//                         var col2 = document.createElement("td");
+//                         var text2 = document.createTextNode(data.RLTDS[i]);
+//                         var col3 = document.createElement("td");
+//                         var text3 = document.createTextNode("");
+
+                        
+//                         col1.appendChild(text1);
+//                         col2.appendChild(text2);
+//                         col3.appendChild(text3);
+
+
+                        
+//                         row.appendChild(col1);
+//                         row.appendChild(col2);
+//                         row.appendChild(col3);
+//                         document.getElementById("InforEndnode").appendChild(row);
+//                     }
+//                     for (var i = 0; i < data.THL_SENSOR.length; i++ ){
+//                         var row = document.createElement("tr");
+//                         var col1 = document.createElement("td");
+//                         var text1 = document.createTextNode("THL_SENSOR");
+//                         var col2 = document.createElement("td");
+//                         var text2 = document.createTextNode(data.THL_SENSOR[i]);
+//                         var col3 = document.createElement("td");
+//                         var text3 = document.createTextNode("");
+
+
+//                         col1.appendChild(text1);
+//                         col2.appendChild(text2);
+//                         col3.appendChild(text3);
+
+//                         row.appendChild(col1);
+//                         row.appendChild(col2);
+//                         row.appendChild(col3);
+//                         document.getElementById("InforEndnode").appendChild(row);
+//                     }
+//                     clearInterval(timer_endnode);
+//                 },
+//                 error: function (xhr, status, e) {
+//                     alert(status, e);
+//                 }
+//             });
+//         }, 500);
+// })
+
+</script>
+{% endblock %}
