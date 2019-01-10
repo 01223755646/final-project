@@ -5,7 +5,7 @@
         <li class="breadcrumb-item">
             <a href="">IOT Farm</a>
         </li>
-        <li class="breadcrumb-item active">EndNode</li>
+        <li class="breadcrumb-item active">Control & Mornitoring</li>
     </ol>
     <div class="container">
             
@@ -18,16 +18,14 @@
             </div>  -->
         </h2>     
         <h3>RLACS NODE</h3>
-        <input type="checkbox" data-toggle="toggle" data-onstyle="primary" data-offstyle="danger" id="RLACS01_D1">
-        <input type="checkbox" data-toggle="toggle">
         <table class="table table-bordered">
             <thead>
               <tr class="d-flex">
                 <th scope="col" class="col-4">IDNODE</th>
                 <th scope="col" class="col-2">D1</th>
                 <th scope="col" class="col-2">A1</th>
-                <th scope="col" class="col-2">D1</th>
-                <th scope="col" class="col-2">A1</th>
+                <th scope="col" class="col-2">D2</th>
+                <th scope="col" class="col-2">A2</th>
               </tr>
             </thead>
             <tbody id="RLACS_TABLE">
@@ -70,7 +68,49 @@
 </div>
 
 <script>
+function myFunction(btn_id){
+        // alert($('#'+btn_id).val());
+        id_ = '#'+btn_id;
+        if ($(id_).val() == 'ON'){
+            $(id_).removeClass();
+            $(id_).addClass("btn btn-default");
+            $(id_).val("OFF");
+            var datasend = {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'IDNODE'   : id_.slice(1, id_.length - 3),
+                'PIN'       : id_.slice(id_.length - 2, id_.length),
+                'STATUS'    : 'OFF',
+            };
+            
+            $.ajax({
+                type: 'POST',
+                url: '/device/ControlDO/',
+                data: datasend,
+                success: function (data, textStatus) {},
+                error: function (xhr, status, e) {alert(status, e);}
+            });
 
+        }
+        else if ($(id_).val() == 'OFF'){
+            $(id_).removeClass();
+            $(id_).addClass("btn btn-success");
+            $(id_).val("ON");
+            var datasend = {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'IDNODE'   : id_.slice(1, id_.length - 3),
+                'PIN'       : id_.slice(id_.length - 2, id_.length),
+                'STATUS'    : 'ON',
+            };
+            
+            $.ajax({
+                type: 'POST',
+                url: '/device/ControlDO/',
+                data: datasend,
+                success: function (data, textStatus) {},
+                error: function (xhr, status, e) {alert(status, e);}
+            });
+        }
+    }
 $(document).ready(function(){
     var timer_cmpages = setInterval(function(){
         
@@ -85,73 +125,135 @@ $(document).ready(function(){
                 data: datasend,
                 success: function (data, textStatus) {
                     console.log(data);
-                    console.log(data.RLACS); 
+                    // console.log(data.RLACS); 
                     for (var i = 0; i < data.RLACS.length; i++ ){
+                        var col1 = document.createElement("td");
+                        var text1 = document.createTextNode(data.RLACS[i][0]);
+                        col1.setAttribute( "class","col-4");
+                        col1.appendChild(text1);
+
+                        var col2 = document.createElement("td");
+                        var btnd1 = document.createElement("input");
+                        col2.setAttribute( "class","col-2");
+                        btnd1.setAttribute("type", "button");
+                        btnd1.setAttribute("class","btn btn-default")
+                        btnd1.setAttribute("id",data.RLACS[i][0]+"_D1");
+                        btnd1.setAttribute("value","OFF");
+                        btnd1.setAttribute("style","width:100px");
+                        btnd1.setAttribute("onclick","myFunction(this.id)");
+                        
+
+                        col2.appendChild(btnd1);
+
+                        var col3 = document.createElement("td");
+                        var text3 = document.createTextNode(data.RLACS[i][2] + " (A)");
+                        col3.setAttribute( "class","col-2");
+                        col3.appendChild(text3);
+                        
+                        var col4 = document.createElement("td");
+                        var btnd2 = document.createElement("input");
+                        col4.setAttribute( "class","col-2");
+                        btnd2.setAttribute("type", "button");
+                        btnd2.setAttribute("class","btn btn-default")                      
+                        btnd2.setAttribute("id",data.RLACS[i][0]+"_D2");
+                        btnd2.setAttribute("value","OFF");
+                        btnd2.setAttribute("style","width:100px");
+                        btnd2.setAttribute("onclick","myFunction(this.id)");
+                        col4.appendChild(btnd2);
+
+                        var col5 = document.createElement("td");
+                        col5.setAttribute( "class","col-2");
+                        var text5 = document.createTextNode(data.RLACS[i][4] + " (A)");
+                        col5.appendChild(text5);
+                        
                         var row = document.createElement("tr");
                         row.setAttribute("id", data.RLACS[i][0]);
-                        document.getElementById("RLACS_TABLE").appendChild(row);
-                        // $('#'+data.RLACS[i]).prepend('<td>'+ data.RLACS[i] +'</td>')
-                        // $('#'+data.RLACS[i]).prepend('<td>'+ '<input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger">' +'</td>');
-                        // $('#'+data.RLACS[i]).prepend('<td>'+ '<input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger">' +'</td>');
-                        // $('#'+data.RLACS[i]).prepend('<td>'+ '<input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger">' +'</td>');
-                        // $('#'+data.RLACS[i]).prepend('<td>'+ '<input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger">' +'</td>');
-                        s = '<td>'+ data.RLACS[i] +'</td>';
-                        s += '<td>'+ '<input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger">' +'</td>';
-                        s += '<td>'+ data.RLACS[i] +'</td>';
-                        s += '<td>'+ '<input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger">' +'</td>';
-                        s += '<td><input type="checkbox" data-toggle="toggle"></td>';
-                        document.getElementById(data.RLACS[i][0]).innerHTML=(s);
-                        // var col1 = document.createElement("td");
-                        // var text1 = document.createTextNode(data.RLACS[i][0]);
+                        row.setAttribute("class","d-flex");
+                        row.appendChild(col1);
+                        row.appendChild(col2);
+                        row.appendChild(col3);
+                        row.appendChild(col4);
+                        row.appendChild(col5);
+                        document.getElementById("RLACS_TABLE").appendChild(row);                  
+                    }
+                    for (var i = 0; i < data.RLTDS.length; i++ ){
+                        var col1 = document.createElement("td");
+                        var text1 = document.createTextNode(data.RLTDS[i][0]);
+                        col1.setAttribute( "class","col-4");
+                        col1.appendChild(text1);
 
-                        // var col2 = document.createElement("td");
-                        // var btnd1 = document.createElement("input");
-                        // btnd1.setAttribute("type", "checkbox");
-                        // btnd1.setAttribute("data-toggle", "toggle");
-                        // btnd1.setAttribute("data-onstyle","primary");
-                        // btnd1.setAttribute("data-offstyle","danger");
-                        // btnd1.setAttribute("id",data.RLACS[i][0]+"_D1");
+                        var col2 = document.createElement("td");
+                        var btnd1 = document.createElement("input");
+                        col2.setAttribute( "class","col-4");
+                        btnd1.setAttribute("type", "button");
+                        btnd1.setAttribute("class","btn btn-default")
+                        btnd1.setAttribute("id",data.RLTDS[i][0]+"_DX");
+                        btnd1.setAttribute("value","OFF");
+                        btnd1.setAttribute("style","width:100px");
+                        btnd1.setAttribute("onclick","myFunction(this.id)");
+                        col2.appendChild(btnd1);
 
-                        // var col3 = document.createElement("td");
-                        // var text3 = document.createTextNode(data.RLACS[i][2] + "A");
+                        var col3 = document.createElement("td");
+                        var text3 = document.createTextNode(data.RLACS[i][2] + " (PPM)");
+                        col3.setAttribute( "class","col-4");
+                        col3.appendChild(text3);
 
-                        // var col4 = document.createElement("td");
-                        // var btnd2 = document.createElement("input");
-                        // btnd2.setAttribute("type", "checkbox");
-                        // btnd2.setAttribute("data-toggle", "toggle");
-                        // btnd2.setAttribute("data-onstyle","primary");
-                        // btnd2.setAttribute("data-offstyle","danger");
-                        // btnd2.setAttribute("id",data.RLACS[i][0]+"_D2");
+                        var row = document.createElement("tr");
+                        row.setAttribute("id", data.RLTDS[i][0]);
+                        row.setAttribute("class","d-flex");
+                        row.appendChild(col1);
+                        row.appendChild(col2);
+                        row.appendChild(col3);
+                        document.getElementById("RLTDS_TABLE").appendChild(row);   
+                    }
 
-                        // var col5 = document.createElement("td");
-                        // var text5 = document.createTextNode(data.RLACS[i][4] + "A");
+                    for (var i = 0; i < data.THL.length; i++ ){
+                        var col1 = document.createElement("td");
+                        var text1 = document.createTextNode(data.THL[i][0]);
+                        col1.setAttribute( "class","col-4");
+                        col1.appendChild(text1);
 
-                        // col1.appendChild(text1);
-                        // col2.appendChild(btnd1);
-                        // col3.appendChild(text3);
-                        // col4.appendChild(btnd2);
-                        // col5.appendChild(text5);
+                        var col2 = document.createElement("td");
+                        var text2 = document.createTextNode(data.THL[i][1] + " " +String.fromCharCode(176) + "C");
+                        col2.setAttribute( "class","col-3");
+                        col2.appendChild(text2);
 
-                        // row.appendChild(col1);
-                        // row.appendChild(col2);
-                        // row.appendChild(col3);
-                        // row.appendChild(col4);
-                        // row.appendChild(col5);
-                        
-                        document.getElementById("RLACS_TABLE").appendChild(row);                        
+                        var col3 = document.createElement("td");
+                        var text3 = document.createTextNode(data.THL[i][2] + " %");
+                        col3.setAttribute( "class","col-3");
+                        col3.appendChild(text3);
+
+                        var col4 = document.createElement("td");
+                        var text4 = document.createTextNode(data.THL[i][3] + " LUX");
+                        col4.setAttribute( "class","col-2");
+                        col4.appendChild(text4);
+
+                        var row = document.createElement("tr");
+                        row.setAttribute("id", data.THL[i][0]);
+                        row.setAttribute("class","d-flex");
+                        row.appendChild(col1);
+                        row.appendChild(col2);
+                        row.appendChild(col3);
+                        row.appendChild(col4);
+                        document.getElementById("THL_TABLE").appendChild(row);   
                     }
 
                     clearInterval(timer_cmpages);
 
                 // <!-- <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger"> -->
                 },
-                error: function (xhr, status, e) {
-                    alert(status, e);
-                }
+                
             });
       
     },100);
+    
 })
+
+
+// $(id_).removeClass();
+// $(id_).addClass("btn btn-primary active");
+// $(id_).text("ON");
+
 // $(document).ready(function(){
 //     var timer_endnode;
 //     timer_endnode = setInterval(

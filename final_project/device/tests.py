@@ -9,7 +9,7 @@ def GetInfoEndnode(link):
     row_data = c.fetchall()
 #     print(row_data)
     c.close()
-    
+
     data = {}
     RLACS = []
     RLTDS = []
@@ -88,4 +88,12 @@ def getdataCMpage(link):
             'RLTDS' : data_RLTDS,
             'THL'   : data_THL,}
     return data
+    
+def ControlRELAY(link, ORDER_QUERY):
+    con     = sqlite3.connect(link)
+    c       = con.cursor()
+    c.execute(ORDER_QUERY)
+    con.commit()
+    c.close()
+    # Gui lenh dieu khien relay qua lora
 
