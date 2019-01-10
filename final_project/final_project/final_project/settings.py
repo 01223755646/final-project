@@ -25,7 +25,7 @@ SECRET_KEY = 'isl#m260a0bd(h1t)vv)nww-!0f0-!9c&8c0_z7-vk8ojwde-l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.43.50',]
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 

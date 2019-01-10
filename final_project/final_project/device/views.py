@@ -7,6 +7,9 @@ from network.models import Network
 import os
 import sqlite3
 from device.tests import GetInfoEndnode, CheckIDNode, CheckExist, AddEndNode_, DeleteEndNode_, getdataCMpage, ControlRELAY
+
+
+linkDB = "/home/pi/Desktop/final_project/final_project/db.sqlite3"
 # Create your views here.
 @login_required(login_url='/account/UserLogin/')
 def EndNode(request):
@@ -16,7 +19,8 @@ def EndNode(request):
 @login_required(login_url='/account/UserLogin/')
 def InfoEndNode(request):
     print(request.POST)
-    linkDB = "C:\\Users\\Admin\\Desktop\\final_project\\final_project\\db.sqlite3"
+    #linkDB = "C:\\Users\\Admin\\Desktop\\final_project\\final_project\\db.sqlite3"
+    linkDB = "/home/pi/Desktop/final_project/final_project/db.sqlite3"
     data = GetInfoEndnode(linkDB)
     return JsonResponse(data)
 @login_required(login_url='/account/UserLogin/')
@@ -24,7 +28,7 @@ def InfoEndNode(request):
 def AddEndNode(request):
     print(request.POST)
     data = {}
-    linkDB = "C:\\Users\\Admin\\Desktop\\final_project\\final_project\\db.sqlite3"
+    #linkDB = "C:\\Users\\Admin\\Desktop\\final_project\\final_project\\db.sqlite3"
     if request.method == 'POST':
         TYPENODE = request.POST['TYPENODE']
         IDNODE = request.POST['IDNODE']
@@ -42,7 +46,7 @@ def AddEndNode(request):
 def DeleteEndNode(request):
     print(request.POST)
     data = {}
-    linkDB = "C:\\Users\\Admin\\Desktop\\final_project\\final_project\\db.sqlite3"
+    #linkDB = "C:\\Users\\Admin\\Desktop\\final_project\\final_project\\db.sqlite3"
     if request.method == 'POST':
         TYPENODE = request.POST['TYPENODE']
         IDNODE = request.POST['IDNODE']
@@ -73,7 +77,7 @@ def ControlMornitoringPage(request):
 
 @login_required(login_url='/account/UserLogin/')
 def DataCMPage(request):
-    linkDB = "C:\\Users\\Admin\\Desktop\\final_project\\final_project\\db.sqlite3"
+    #linkDB = "C:\\Users\\Admin\\Desktop\\final_project\\final_project\\db.sqlite3"
     if request.method == 'POST':
         data = getdataCMpage(linkDB)
         return JsonResponse(data)
@@ -81,8 +85,8 @@ def DataCMPage(request):
 
 @login_required(login_url='/account/UserLogin/')
 def ControlDO(request):
-    # print((request.POST))
-    linkDB = "C:\\Users\\Admin\\Desktop\\final_project\\final_project\\db.sqlite3"
+    print((request.POST))
+    #linkDB = "C:\\Users\\Admin\\Desktop\\final_project\\final_project\\db.sqlite3"
     if request.method == 'POST':
         IDNODE  = request.POST['IDNODE']
         
@@ -91,10 +95,18 @@ def ControlDO(request):
 
         if NODE == 'RLACS':
             PIN     = request.POST['PIN'] + 'X'
-            order_query = ''' UPDATE {} SET {} = "{}" WHERE IDNODE = "{}"  '''.format(NODE, PIN, STATUS, IDNODE)
+            order_query = ''' UPDATE "{}" SET {} = "{}" WHERE IDNODE = "{}"  '''.format(NODE, PIN, STATUS, IDNODE)
         elif NODE == 'RLTDS' :
             PIN     = request.POST['PIN']
-            order_query = ''' UPDATE {} SET {} = "{}" WHERE IDNODE = "{}"  '''.format(NODE, PIN, STATUS, IDNODE)
-        # print(order_query)
+            order_query = ''' UPDATE "{}" SET {} = "{}" WHERE IDNODE = "{}"  '''.format(NODE, PIN, STATUS, IDNODE)
+        print(order_query)
         ControlRELAY(linkDB, order_query)
+    return JsonResponse({})
+
+@login_required(login_url='/account/UserLogin/')
+def UpdateData(request):
+    print((request.POST))
+    if request.method == 'POST':
+        data = getdataCMpage(linkDB)
+        return JsonResponse(data)
     return JsonResponse({})

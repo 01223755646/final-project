@@ -19,6 +19,9 @@ def Accesspoint(request):
     network_.SSID = request.POST['SSID']
     network_.PSK = request.POST['PSK']
     network_.MODE = request.POST['Mode']
+    network_.IP   = '192.168.4.1'
+    network_.SubnetMask  = '255.255.255.0'
+    network_.GateWay = '192.168.4.1'    
     network_.save()
     return render(request,'network/network.html')
 
@@ -44,3 +47,6 @@ def HDCPWifiStation(request):
     network_.MODE = request.POST['Mode']
     network_.save()
     return render(request,'network/network.html')
+
+def NetworkData(request):
+    pass

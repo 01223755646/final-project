@@ -10,4 +10,5 @@ urlpatterns = [
     path('ControlMornitoring/', views.ControlMornitoringPage, name='CMPage'),
     path('DataCMPage/', views.DataCMPage, name='dataCMPage'),
     path('ControlDO/', views.ControlDO, name='ControlDO'),
+    path('UpdateData/', views.UpdateData, name='UpdateData'),
 ]

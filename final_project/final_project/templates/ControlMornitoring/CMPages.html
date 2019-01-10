@@ -146,8 +146,9 @@ $(document).ready(function(){
                         col2.appendChild(btnd1);
 
                         var col3 = document.createElement("td");
-                        var text3 = document.createTextNode(data.RLACS[i][2] + " (A)");
+                        var text3 = document.createTextNode(data.RLACS[i][2] + " A");
                         col3.setAttribute( "class","col-2");
+                        col3.setAttribute( "id",data.RLACS[i][0]+"_A1");
                         col3.appendChild(text3);
                         
                         var col4 = document.createElement("td");
@@ -163,7 +164,8 @@ $(document).ready(function(){
 
                         var col5 = document.createElement("td");
                         col5.setAttribute( "class","col-2");
-                        var text5 = document.createTextNode(data.RLACS[i][4] + " (A)");
+                        col5.setAttribute( "id",data.RLACS[i][0]+"_A2");
+                        var text5 = document.createTextNode(data.RLACS[i][4] + " A");
                         col5.appendChild(text5);
                         
                         var row = document.createElement("tr");
@@ -194,7 +196,8 @@ $(document).ready(function(){
                         col2.appendChild(btnd1);
 
                         var col3 = document.createElement("td");
-                        var text3 = document.createTextNode(data.RLACS[i][2] + " (PPM)");
+                        col3.setAttribute( "id",data.RLTDS[i][0]+"_TDS");
+                        var text3 = document.createTextNode(data.RLACS[i][2] + " PPM");
                         col3.setAttribute( "class","col-4");
                         col3.appendChild(text3);
 
@@ -206,7 +209,6 @@ $(document).ready(function(){
                         row.appendChild(col3);
                         document.getElementById("RLTDS_TABLE").appendChild(row);   
                     }
-
                     for (var i = 0; i < data.THL.length; i++ ){
                         var col1 = document.createElement("td");
                         var text1 = document.createTextNode(data.THL[i][0]);
@@ -214,16 +216,19 @@ $(document).ready(function(){
                         col1.appendChild(text1);
 
                         var col2 = document.createElement("td");
+                        col2.setAttribute( "id",data.THL[i][0]+"_T");
                         var text2 = document.createTextNode(data.THL[i][1] + " " +String.fromCharCode(176) + "C");
                         col2.setAttribute( "class","col-3");
                         col2.appendChild(text2);
 
                         var col3 = document.createElement("td");
+                        col3.setAttribute( "id",data.THL[i][0]+"_H");
                         var text3 = document.createTextNode(data.THL[i][2] + " %");
                         col3.setAttribute( "class","col-3");
                         col3.appendChild(text3);
 
                         var col4 = document.createElement("td");
+                        col4.setAttribute( "id",data.THL[i][0]+"_L");
                         var text4 = document.createTextNode(data.THL[i][3] + " LUX");
                         col4.setAttribute( "class","col-2");
                         col4.appendChild(text4);
@@ -243,11 +248,75 @@ $(document).ready(function(){
                 // <!-- <input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-offstyle="danger"> -->
                 },
                 
+                error: function (xhr, status, e) {
+                alert(status, e);
+                }
+            
             });
+                
+        },100);
       
-    },100);
     
+    var updatedata = setInterval(function(){
+        var datasend = {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+                'status' : 'update realtime',
+            };
+        $.ajax({
+            type: 'POST',
+                url: '/device/UpdateData/',
+                data: datasend,
+                success: function (data, textStatus) {
+                    console.log(data);
+                    for (var i = 0; i < data.RLACS.length; i++ ){
+                        document.getElementById(data.RLACS[i][0]+"_D1").value = data.RLACS[i][1];
+                        document.getElementById(data.RLACS[i][0]+"_D2").value = data.RLACS[i][3];
+                        document.getElementById(data.RLACS[i][0]+"_A1").innerHTML = data.RLACS[i][2] + " A";
+                        document.getElementById(data.RLACS[i][0]+"_A1").innerHTML = data.RLACS[i][4] + " A";
+                        if (data.RLACS[i][1] == 'ON'){
+                            $('#' + data.RLACS[i][0] + "_D1").removeClass();
+                            $('#' + data.RLACS[i][0] + "_D1").addClass("btn btn-primary");
+                        }
+                        else if (data.RLACS[i][1] == 'OFF'){
+                            $('#' + data.RLACS[i][0] + "_D1").removeClass();
+                            $('#' + data.RLACS[i][0] + "_D1").addClass("btn btn-default");
+                        }
+                        if (data.RLACS[i][3] == 'ON'){
+                            $('#' + data.RLACS[i][0] + "_D2").removeClass();
+                            $('#' + data.RLACS[i][0] + "_D2").addClass("btn btn-primary");
+                        }
+                        else if (data.RLACS[i][3] == 'OFF'){
+                            $('#' + data.RLACS[i][0] + "_D2").removeClass();
+                            $('#' + data.RLACS[i][0] + "_D2").addClass("btn btn-default");
+                        }
+                    }
+                    for (var i = 0; i < data.RLTDS.length; i++ ){
+                        document.getElementById(data.RLTDS[i][0]+"_DX").value = data.RLTDS[i][1];
+                        document.getElementById(data.RLTDS[i][0]+"_TDS").innerHTML = data.RLTDS[i][2]  + " PPM";
+                        if (data.RLTDS[i][1] == 'ON'){
+                            $('#' + data.RLTDS[i][0] + "_DX").removeClass();
+                            $('#' + data.RLTDS[i][0] + "_DX").addClass("btn btn-primary");
+                        }
+                        else if (data.RLTDS[i][1] == 'OFF'){
+                            $('#' + data.RLTDS[i][0] + "_DX").removeClass();
+                            $('#' + data.RLTDS[i][0] + "_DX").addClass("btn btn-default");
+                        }
+                    }
+                    for (var i = 0; i < data.THL.length; i++ ){
+                        document.getElementById(data.THL[i][0]+"_T").innerHTML = data.THL[i][1]  + " " + String.fromCharCode(176) + "C";
+                        document.getElementById(data.THL[i][0]+"_H").innerHTML = data.THL[i][2]  + " " + "%";
+                        document.getElementById(data.THL[i][0]+"_L").innerHTML = data.THL[i][3]  + " " + "LUX";
+                    }
+
+                },
+                error: function (xhr, status, e) {
+                // alert(status, e);
+                }
+        });
+    }, 2000);
 })
+    
+
 
 
 // $(id_).removeClass();
